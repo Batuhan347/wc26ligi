@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tahmin Ligi 2026</title>
+    <title>Dünya Kupası Tahmin Ligi Sistemi</title>
     <style>
         :root {
             --bg-color: #0f172a;
@@ -22,29 +22,34 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
         .container {
-            max-width: 500px;
+            max-width: 450px;
             width: 100%;
+            margin-top: 20px;
         }
         .logo-area {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
-        .logo-area img {
-            width: 80px;
-            height: 80px;
+        .logo-icon {
+            font-size: 50px;
+            background: linear-gradient(135deg, #3b82f6, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         h1 {
             text-align: center;
-            color: var(--text);
+            color: #10b981;
             margin: 0 0 5px 0;
-            font-size: 24px;
+            font-size: 26px;
+            font-weight: 700;
         }
         .subtitle {
             text-align: center;
             color: var(--text-muted);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             font-size: 14px;
         }
         .card {
@@ -52,63 +57,80 @@
             border-radius: 16px;
             padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+        }
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid #334155;
+            margin-bottom: 20px;
+        }
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 10px;
+            cursor: pointer;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+        .tab.active {
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: -2px;
         }
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         label {
             display: block;
             margin-bottom: 8px;
             color: var(--text);
             font-size: 14px;
+            font-weight: 500;
         }
         input {
             width: 100%;
             padding: 12px;
             border-radius: 8px;
             border: 1px solid #334155;
-            background-color: #1e293b;
+            background-color: #0f172a;
             color: var(--text);
             box-sizing: border-box;
             font-size: 14px;
+            transition: border 0.2s;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--accent);
         }
         button {
             background-color: var(--accent);
-            color: white;
+            color: #0f172a;
             border: none;
             padding: 14px;
             border-radius: 8px;
-            font-weight: bold;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
-            font-size: 16px;
+            font-size: 15px;
+            margin-top: 10px;
             transition: background 0.2s;
         }
         button:hover {
             background-color: var(--accent-hover);
+            color: white;
         }
         .match-card {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px;
+            padding: 12px;
             background: #0f172a;
-            border-radius: 12px;
-            margin-bottom: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
         .team {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            flex: 1;
+            font-weight: 600;
             font-size: 14px;
-        }
-        .team.right {
-            justify-content: flex-end;
-        }
-        .flag {
-            font-size: 20px;
         }
         .score-inputs {
             display: flex;
@@ -116,93 +138,70 @@
             align-items: center;
         }
         .score-inputs input {
-            width: 45px;
-            height: 45px;
+            width: 40px;
+            height: 40px;
             text-align: center;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: bold;
             padding: 0;
-            border-radius: 8px;
             background: #1e293b;
-        }
-        /* Açılır Kapanır Maç Sonuçları (Accordion) */
-        .accordion-btn {
-            background-color: #334155;
-            color: var(--text);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-            margin-top: 20px;
-        }
-        .accordion-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-            background: #0f172a;
-            border-radius: 0 0 8px 8px;
-        }
-        .accordion-content.open {
-            max-height: 500px;
-            padding: 15px;
-            margin-bottom: 20px;
-            border: 1px solid #334155;
-            border-top: none;
         }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 10px;
         }
         th, td {
             text-align: left;
-            padding: 12px;
+            padding: 12px 8px;
             border-bottom: 1px solid #334155;
             font-size: 14px;
         }
-        th { color: var(--text-muted); }
+        th {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
     <div class="logo-area">
-        <span style="font-size: 60px;">⚽</span>
+        <div class="logo-icon">⚽</div>
     </div>
     <h1>Tahmin Ligi 2026</h1>
     <div class="subtitle">Dünya Kupası Tahmin Oyunu</div>
 
-    <div class="card" id="loginCard">
+    <div class="card" id="authCard">
+        <div class="tabs">
+            <div class="tab active" id="loginTab" onclick="switchTab('login')">Giriş</div>
+            <div class="tab" id="registerTab" onclick="switchTab('register')">Kayıt</div>
+        </div>
+        
         <div class="form-group">
             <label>Oyuncu Adı</label>
             <input type="text" id="username" placeholder="Adınızı girin">
         </div>
-        <button onclick="login()">Giriş Yap</button>
+        <div class="form-group">
+            <label>Şifre</label>
+            <input type="password" id="password" placeholder="Şifrenizi girin">
+        </div>
+        <button id="authBtn" onclick="handleAuth()">Giriş Yap</button>
     </div>
 
     <div class="card" id="predictionCard" style="display: none;">
         <h3>Hoş geldin, <span id="userDisplay" style="color: var(--accent);"></span>!</h3>
-        <p style="color: var(--text-muted); font-size: 13px; margin-bottom: 20px;">Tahminlerini gir ve ortak havuza gönder.</p>
         
-        <div id="matchesContainer">
-            <div class="match-card">
-                <div class="team">
-                    <span class="flag">🇹🇷</span>
-                    <span>Türkiye</span>
-                </div>
-                <div class="score-inputs">
-                    <input type="number" id="skor1" min="0" placeholder="0">
-                    <span style="color:var(--text-muted)">-</span>
-                    <input type="number" id="skor2" min="0" placeholder="0">
-                </div>
-                <div class="team right">
-                    <span>İtalya</span>
-                    <span class="flag">🇮🇹</span>
-                </div>
+        <div class="match-card">
+            <span class="team">Türkiye 🇹🇷</span>
+            <div class="score-inputs">
+                <input type="number" id="skor1" min="0" placeholder="0">
+                <span style="color:var(--text-muted)">-</span>
+                <input type="number" id="skor2" min="0" placeholder="0">
             </div>
+            <span class="team">İtalya 🇮🇹</span>
         </div>
+        
         <button onclick="savePredictions()">Tahminleri Kaydet</button>
     </div>
 
@@ -213,36 +212,22 @@
                 <tr>
                     <th>Sıra</th>
                     <th>Oyuncu</th>
+                    <th>Tahmin</th>
                     <th>Puan</th>
                 </tr>
             </thead>
             <tbody id="leaderboardBody">
                 <tr>
-                    <td colspan="3" style="text-align: center; color: var(--text-muted);">Yükleniyor...</td>
+                    <td colspan="4" style="text-align: center; color: var(--text-muted);">Yükleniyor...</td>
                 </tr>
             </tbody>
         </table>
-    </div>
-
-    <div class="accordion-btn" onclick="toggleAccordion()">
-        <span>🏆 Canlı Maç Sonuçları</span>
-        <span id="arrow">▼</span>
-    </div>
-    <div class="accordion-content" id="accordionContent">
-        <div style="display:flex; justify-content:space-between; color:var(--text-muted); font-size:13px; border-bottom:1px solid #334155; padding-bottom:8px;">
-            <span>Maç</span>
-            <span>Sonuç</span>
-        </div>
-        <div style="display:flex; justify-content:space-between; padding:10px 0; font-size:14px;">
-            <span>🇹🇷 Türkiye - İtalya 🇮🇹</span>
-            <span style="font-weight:bold; color:var(--accent);">Henüz Oynanmadı</span>
-        </div>
     </div>
 </div>
 
 <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, set, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+    import { getDatabase, ref, set, get, child, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
     const firebaseConfig = {
         apiKey: "AIzaSyBj0Sf7raTruV3sn4bXRyOR0QPluOpN_GI",
@@ -255,76 +240,105 @@
     };
 
     const app = initializeApp(firebaseConfig);
-    const database = getDatabase(app);
+    const db = getDatabase(app);
 
-    // Butonların çalışabilmesi için fonksiyonları pencereye (window) bağlıyoruz
-    window.login = function() {
-        const name = document.getElementById('username').value.trim();
-        if(!name) return alert('Lütfen adınızı girin!');
-        localStorage.setItem('wc_user', name);
-        showUserScreen(name);
+    let currentMode = 'login';
+
+    window.switchTab = function(mode) {
+        currentMode = mode;
+        if(mode === 'login') {
+            document.getElementById('loginTab').classList.add('active');
+            document.getElementById('registerTab').classList.remove('active');
+            document.getElementById('authBtn').innerText = 'Giriş Yap';
+        } else {
+            document.getElementById('registerTab').classList.add('active');
+            document.getElementById('loginTab').classList.remove('active');
+            document.getElementById('authBtn').innerText = 'Kayıt Ol';
+        }
     }
 
-    function showUserScreen(name) {
-        document.getElementById('loginCard').style.display = 'none';
+    window.handleAuth = function() {
+        const user = document.getElementById('username').value.trim();
+        const pass = document.getElementById('password').value;
+
+        if(!user || !pass) return alert("Lütfen tüm alanları doldurun!");
+        if(pass.length < 6) return alert("Şifre en az 6 karakter olmalıdır!");
+
+        const dbRef = ref(db);
+        
+        if(currentMode === 'register') {
+            // Kayıt Olma İşlemi
+            get(child(dbRef, `accounts/${user}`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    alert("Bu kullanıcı adı zaten alınmış!");
+                } else {
+                    set(ref(db, 'accounts/' + user), { password: pass }).then(() => {
+                        alert("Başarıyla kayıt olundu! Giriş yapabilirsiniz.");
+                        switchTab('login');
+                    });
+                }
+            });
+        } else {
+            // Giriş Yapma İşlemi
+            get(child(dbRef, `accounts/${user}`)).then((snapshot) => {
+                if (snapshot.exists() && snapshot.val().password === pass) {
+                    localStorage.setItem('wc_logged_user', user);
+                    showUserPanel(user);
+                } else {
+                    alert("Hatalı kullanıcı adı veya şifre!");
+                }
+            });
+        }
+    }
+
+    function showUserPanel(user) {
+        document.getElementById('authCard').style.display = 'none';
         document.getElementById('predictionCard').style.display = 'block';
-        document.getElementById('userDisplay').innerText = name;
+        document.getElementById('userDisplay').innerText = user;
     }
 
     window.savePredictions = function() {
-        const name = localStorage.getItem('wc_user');
+        const loggedUser = localStorage.getItem('wc_logged_user');
         const s1 = document.getElementById('skor1').value;
         const s2 = document.getElementById('skor2').value;
 
-        if(s1 === "" || s2 === "") return alert("Lütfen skor girin!");
+        if(s1 === "" || s2 === "") return alert("Lütfen tahmin skoru giriniz!");
 
-        set(ref(database, 'users/' + name), {
-            username: name,
+        set(ref(db, 'predictions/' + loggedUser), {
+            username: loggedUser,
             tahmin: s1 + "-" + s2,
             puan: 0
         }).then(() => {
-            alert("Tahminleriniz başarıyla ortak havuza kaydedildi!");
+            alert("Tahminleriniz ortak havuza başarıyla gönderildi!");
         });
     }
 
-    // Ortak havuzdan anlık liste güncelleme
-    onValue(ref(database, 'users'), (snapshot) => {
+    // Ortak havuzdan anlık olarak puan durumunu ve arkadaşların tahminlerini çekme
+    onValue(ref(db, 'predictions'), (snapshot) => {
         const data = snapshot.val();
         const tbody = document.getElementById('leaderboardBody');
         tbody.innerHTML = "";
 
         if(!data) {
-            tbody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-muted);">Henüz tahmin yok.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: var(--text-muted);">Henüz hiç tahmin yok. İlk tahmini sen yap!</td></tr>`;
             return;
         }
 
-        let index = 1;
-        for (let user in data) {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${index++}</td>
-                <td><b>${data[user].username}</b> <span style="font-size:12px; color:var(--text-muted);">(Tahmin: ${data[user].tmin || data[user].tahmin || 'Yok'})</span></td>
-                <td>${data[user].puan}</td>
-            `;
-            tbody.appendChild(tr);
+        let i = 1;
+        for (let key in data) {
+            tbody.innerHTML += `
+                <tr>
+                    <td>${i++}</td>
+                    <td><b>${data[key].username}</b></td>
+                    <td>${data[key].tahmin}</td>
+                    <td>${data[key].puan}</td>
+                </tr>`;
         }
     });
 
-    // Sayfa yenilendiğinde otomatik giriş kontrolü
-    const savedUser = localStorage.getItem('wc_user');
-    if(savedUser) showUserScreen(savedUser);
-
-    // Açılır kapanır kutu fonksiyonu
-    window.toggleAccordion = function() {
-        const content = document.getElementById('accordionContent');
-        const arrow = document.getElementById('arrow');
-        content.classList.toggle('open');
-        if(content.classList.contains('open')) {
-            arrow.innerText = "▲";
-        } else {
-            arrow.innerText = "▼";
-        }
-    }
+    // Sayfa yenilendiğinde girişi koru
+    const checkUser = localStorage.getItem('wc_logged_user');
+    if(checkUser) showUserPanel(checkUser);
 </script>
 
 </body>
